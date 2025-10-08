@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Cars</title>
+</head>
+<body>
+<h1>Список автомобилей</h1>
+
+<div>
+    <!-- Используйте Thymeleaf синтаксис для ссылок -->
+    <a th:href="@{/cars}">Все</a>
+    <a th:href="@{/cars(count=2)}">2 авто</a>
+    <a th:href="@{/cars(count=3)}">3 авто</a>
+</div>
+
+<p>Показано: <span th:text="${showingCount}"></span> из <span th:text="${totalCars}"></span></p>
+
+<table border="1">
+    <tr>
+        <th>Марка</th>
+        <th>Модель</th>
+        <th>Цвет</th>
+    </tr>
+    <tr th:each="car : ${cars}">
+        <td th:text="${car.brand}"></td>
+        <td th:text="${car.model}"></td>
+        <td th:text="${car.color}"></td>
+    </tr>
+</table>
+</body>
+</html>
