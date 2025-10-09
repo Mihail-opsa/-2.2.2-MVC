@@ -1,3 +1,42 @@
+
+<!--<!DOCTYPE html>-->
+<!--<html xmlns:th="http://www.thymeleaf.org">-->
+<!--<head>-->
+<!--    <meta charset="UTF-8">-->
+<!--    <title>Cars</title>-->
+<!--</head>-->
+<!--<body>-->
+<!--<h1>Car List</h1>-->
+
+<!--&lt;!&ndash; Форма для выбора количества машин &ndash;&gt;-->
+<!--<form th:action="@{/cars/count}" method="get">-->
+<!--    <label>Show cars count:-->
+<!--        <input type="number" name="count" value="3" min="0" max="99">-->
+<!--    </label>-->
+<!--    <button type="submit">Show</button>-->
+<!--</form>-->
+
+<!--&lt;!&ndash; Ссылка для показа 1 машины &ndash;&gt;-->
+<!--<p><a th:href="@{/cars}">Show 1 car (default)</a></p>-->
+
+<!--&lt;!&ndash; Отладочная информация &ndash;&gt;-->
+<!--<p>DEBUG: Current count = <span th:text="${param.count != null ? param.count : 1}">1</span></p>-->
+<!--<p>DEBUG: Cars shown = <span th:text="${cars.size()}">0</span></p>-->
+
+<!--<table border="1">-->
+<!--    <tr>-->
+<!--        <th>Brand</th>-->
+<!--        <th>Model</th>-->
+<!--        <th>Color</th>-->
+<!--    </tr>-->
+<!--    <tr th:each="car : ${cars}">-->
+<!--        <td th:text="${car.brand}">Brand</td>-->
+<!--        <td th:text="${car.model}">Model</td>-->
+<!--        <td th:text="${car.color}">Color</td>-->
+<!--    </tr>-->
+<!--</table>-->
+<!--</body>-->
+<!--</html>-->
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
@@ -5,28 +44,42 @@
     <title>Cars</title>
 </head>
 <body>
-<h1>Список автомобилей</h1>
+<h1>Car List</h1>
 
-<div>
-    <!-- Используйте Thymeleaf синтаксис для ссылок -->
-    <a th:href="@{/cars}">Все</a>
-    <a th:href="@{/cars(count=2)}">2 авто</a>
-    <a th:href="@{/cars(count=3)}">3 авто</a>
-</div>
 
-<p>Показано: <span th:text="${showingCount}"></span> из <span th:text="${totalCars}"></span></p>
+<form th:action="@{/cars}" method="get">
+    <label>Show cars count:
+        <input type="number" name="count"
+               th:value="${param.count != null ? param.count : 1}"
+               min="1">
+    </label>
+    <button type="submit">Show</button>
+</form>
+
+<p>DEBUG: Parameter count = <span th:text="${param.count}">null</span></p>
+<p>Current count: <span th:text="${param.count != null ? param.count : 1}">1</span></p>
+<p>Cars shown: <span th:text="${cars.size()}">0</span></p>
 
 <table border="1">
     <tr>
-        <th>Марка</th>
-        <th>Модель</th>
-        <th>Цвет</th>
+        <th>Brand</th>
+        <th>Model</th>
+        <th>Color</th>
     </tr>
     <tr th:each="car : ${cars}">
-        <td th:text="${car.brand}"></td>
-        <td th:text="${car.model}"></td>
-        <td th:text="${car.color}"></td>
+        <td th:text="${car.brand}">Brand</td>
+        <td th:text="${car.model}">Model</td>
+        <td th:text="${car.color}">Color</td>
     </tr>
 </table>
+
+
+<div style="margin-top: 20px;">
+    <strong>Test links:</strong>
+    <a th:href="@{/cars}">Default (1)</a> |
+    <a th:href="@{/cars(count=3)}">3 cars</a> |
+    <a th:href="@{/cars(count=5)}">5 cars</a> |
+    <a th:href="@{/cars(count=6)}">6 cars (all)</a>
+</div>
 </body>
 </html>
